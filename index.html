@@ -31,16 +31,8 @@
                             <div class="img"><img src="images/1.jpg" alt="img" class="js-avatar iUp profilepic"></div>
                             <div class="info iUp">
                                 <div class="info-back">
-                                    <h2> 
-                                        
-                                            Free
-                                        
-                                    </h2>
-                                    <p>
-                                        
-                                            2024 · 自由
-                                        
-                                    </p>
+                                    <h2>Free</h2>
+                                    <p>2024 · 自由</p>
                                 </div>
                             </div>
                         </a>
@@ -50,10 +42,13 @@
                     </h1>
                     <p class="panel-cover__subtitle panel-subtitle iUp">Where Amazing Happens</p>
                     <hr class="panel-cover__divider iUp" />
-                    <p id="description" class="panel-cover__description iUp">如何得与凉风约, 不共尘沙一并来!
+                    <p id="description" class="panel-cover__description iUp">
+                        如何得与凉风约, 不共尘沙一并来!
                         <br/>
                         <strong>-「中牟道中」</strong>
                     </p>
+                    <!-- 新增文学名言显示 -->
+                    <p id="literature-quote" class="panel-cover__description iUp"></p>
                     <div class="navigation-wrapper iUp">
                         <div>
                             <nav class="cover-navigation cover-navigation--primary">
@@ -85,22 +80,7 @@
                                             <span class="label">github</span>
                                         </a>
                                     </li>
-<!--                                     <li class="navigation__item">
-                                        <a href="http://www.cnblogs.com/dmego/" title="cnblogs" target="_blank">
-                                            <i class='social iconfont icon-cnblogs'></i>
-                                            <span class="label">cnblogs</span>
-                                        </a>
-                                    </li> -->
-
-<!--                                     <li class="navigation__item">
-                                        <a href="https://www.zhihu.com/people/dmego/" title="zhihu" target="_blank">
-                                            <i class='social iconfont icon-zhihu'></i>
-                                            <span class="label">zhihu</span>
-                                        </a>
-                                    </li> -->
                                     <li class="navigation__item">
-                                        <!-- 加密的邮箱地址, 请自行修改, 或者改用下方的明文方式 -->
-<!--                                         <!--  <a href="javascript:decryptEmail('ZG1lYWdvQGdtYWlsLmNvbQ==');" title="email"> -->
                                         <a href="chenggs@hust.edu.com" title="email">
                                             <i class='social iconfont icon-email'></i>
                                             <span class="label">email</span>
@@ -114,10 +94,6 @@
             </div>
             <div class="panel-cover--overlay cover-slate"></div>
         </div>
-        <!-- <div class="beian iUp">
-            <a class="icp" href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">XXX</a>
-            <a class="gwab" href="http://www.beian.gov.cn/portal/recordQuery" target="_blank">XXX</a>
-        </div> -->
         <div class="remark iUp">
             <p class="power">Powered By 
                 <a href="https://github.com/features/actions" target="_blank"> GitHub Actions </a> And 
@@ -127,5 +103,23 @@
     </header>
     <script type="text/javascript" src="https://unpkg.com/dmego-home-page@latest/assets/js/main.js"></script>
     <script type="text/javascript" src="./assets/json/images.json?cb=getBingImages"></script>
+    <!-- 新增获取文学名言的脚本 -->
+    <script type="text/javascript">
+        window.onload = function() {
+            fetchLiteratureQuote();
+        };
+
+        function fetchLiteratureQuote() {
+            fetch("https://v1.hitokoto.cn/?c=d&encode=json")
+                .then(response => response.json())
+                .then(data => {
+                    const quoteElement = document.getElementById('literature-quote');
+                    quoteElement.innerHTML = `"${data.hitokoto}"<br/><strong>- ${data.from}</strong>`;
+                })
+                .catch(error => {
+                    console.error('Error fetching literature quote:', error);
+                });
+        }
+    </script>
 </body>
 </html>
